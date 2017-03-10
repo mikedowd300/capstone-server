@@ -4,7 +4,10 @@ var router = express.Router();
 var aws = require('aws-sdk');
 
 router.get('/:term', function(req, res, next) {
-  res.send(req.params);
+  query.getSounds(req.params.term)
+  .then(function(data) {
+    res.json(data);
+  });
 });
 
 module.exports = router;
