@@ -1,6 +1,6 @@
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex.raw('DELETE FROM "featuredurl"; ALTER SEQUENCE sound_id_seq RESTART WITH 4;')
+  return knex.raw('DELETE FROM "sound"; ALTER SEQUENCE sound_id_seq RESTART WITH 6;')
     .then(function () {
         var sounds = [
         {
@@ -57,7 +57,7 @@ exports.seed = function(knex, Promise) {
           url: 'https://s3-us-west-2.amazonaws.com/earbyter-1/pignoise.m4a',
           mem_size: '143438',
           member_id: 1
-        },
+        }
 
       ];
       return knex('sound').insert(sounds);

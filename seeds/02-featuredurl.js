@@ -17,7 +17,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           id: 3,
-          url: 'https://www.brightsidekennel.com',
+          url: 'http://www.brightsidekennel.com',
           isFeatured: true,
           member_id: 2
         }

@@ -25,7 +25,7 @@ app.use('/', index);
 // app.use('/users', users);
 // app.use('/members', members);
 app.use('/sounds', sounds);
-// app.use('/featuredurls', featuredurls);
+app.use('/featuredurls', featuredurls);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
