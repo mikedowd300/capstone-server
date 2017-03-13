@@ -16,6 +16,7 @@ router.post('/login', function(req, res, next) {
     } else if(bcrypt.compareSync(req.body.password, data.password)){
       query.getUserInfo(data.id)
       .then(function(datb) {
+        //add a little more server side validation for when CJ hacks it
         let datc = {
           id: data.id,
           type: data.type,
@@ -25,6 +26,20 @@ router.post('/login', function(req, res, next) {
       });
     } else {
       res.json("Email and password do not match!");
+    }
+  });
+});
+
+router.post('/signup', function(req, res, next) {
+  query.getLoginInfo(req.body.email)
+  .then(function(data) {
+    if(data === undefined) {
+      query.insertUser(req.body)
+      .then(function() {
+        res.json('ok');
+      });
+    } else {
+      res.json('used');
     }
   });
 });

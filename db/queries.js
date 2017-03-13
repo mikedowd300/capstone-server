@@ -1,4 +1,5 @@
 const knex = require('./knex');
+var bcrypt = require('bcrypt');
 
 module.exports = {
 
@@ -19,6 +20,11 @@ module.exports = {
   },
   getUserInfo: function(id) {
     return knex("sound").where("member_id", id);
+  },
+  insertUser: function(user) {
+    user.type = 'member'
+    user.password = bcrypt.hashSync(user.password, 8);
+    return knex("member").insert(user);
   }
 
 }
