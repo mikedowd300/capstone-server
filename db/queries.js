@@ -25,6 +25,8 @@ module.exports = {
     user.type = 'member'
     user.password = bcrypt.hashSync(user.password, 8);
     return knex("member").insert(user);
+  },
+  addFeatureableSites: function(obj) {
+    return knex("featuredurl").insert(obj);
   }
-
 }

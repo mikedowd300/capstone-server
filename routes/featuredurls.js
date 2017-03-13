@@ -10,5 +10,13 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post('/', function(req, res, next){
+  req.body.isFeatured = false;
+  query.addFeatureableSites(req.body)
+  .then(function() {
+    res.json('success');
+  });
+})
+
 
 module.exports = router;
