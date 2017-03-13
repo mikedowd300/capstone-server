@@ -23,7 +23,7 @@ app.use(cors());
 app.use('/', index);
 // app.use('/api', api);
 // app.use('/users', users);
-// app.use('/members', members);
+app.use('/members', members);
 app.use('/sounds', sounds);
 app.use('/featuredurls', featuredurls);
 

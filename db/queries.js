@@ -12,8 +12,13 @@ module.exports = {
     return knex("sound").where("isFeatured", true);
   },
   getFeaturedSites: function() {
-    console.log('getFeaturedSites');
     return knex("featuredurl").where("isFeatured", true);
+  },
+  getLoginInfo: function(email) {
+    return knex("member").where("email", email).first();
+  },
+  getUserInfo: function(id) {
+    return knex("sound").where("member_id", id);
   }
 
 }

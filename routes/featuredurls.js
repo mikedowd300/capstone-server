@@ -6,7 +6,6 @@ var aws = require('aws-sdk');
 router.get('/', function(req, res, next) {
   query.getFeaturedSites()
   .then(function(data) {
-    console.log('getFeaturedSites');
     res.json(data);
   });
 });
