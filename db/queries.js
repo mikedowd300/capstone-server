@@ -28,5 +28,8 @@ module.exports = {
   },
   addFeatureableSites: function(obj) {
     return knex("featuredurl").insert(obj);
+  },
+  postSound: function(obj) {
+    return knex("sound").insert(obj);
   }
 }

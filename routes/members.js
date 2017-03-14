@@ -13,7 +13,7 @@ router.post('/login', function(req, res, next) {
   .then(function(data) {
     if(!data){
       res.json("Invalid email!");
-    } else if(bcrypt.compareSync(req.body.password, data.password)){
+    }else if(bcrypt.compareSync(req.body.password, data.password)){
       query.getUserInfo(data.id)
       .then(function(datb) {
         //add a little more server side validation for when CJ hacks it
@@ -24,8 +24,8 @@ router.post('/login', function(req, res, next) {
         }
         res.json(datc);
       });
-    } else {
-      res.json("Email and password do not match!");
+    }else {
+      res.json(false);
     }
   });
 });

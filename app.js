@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 app.use(cors());
 
 app.use('/', index);
-// app.use('/api', api);
+app.use('/api', api);
 // app.use('/users', users);
 app.use('/members', members);
 app.use('/sounds', sounds);

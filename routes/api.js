@@ -5,36 +5,33 @@ var aws = require('aws-sdk');
 
 const S3_BUCKET = process.env.S3_BUCKET;
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  //console.log('IN THE USER GET REQUEST IN THE BACKEND');
-  query.getUsers()
-      .then((data) => {
-          res.json(data);
-      });
-});
+// router.get('/', function(req, res, next) {
+//   query.getUsers()
+//       .then((data) => {
+//           res.json(data);
+//       });
+// });
 
-router.get('/sounds', function(req, res, next) {
-  //console.log('IN THE SOUND GET REQUEST IN THE BACKEND');
-  query.getSounds()
-    .then((data) => {
-        res.json(data);
-    });
-});
+// router.get('/sounds', function(req, res, next) {
+//   query.getSounds()
+//     .then(function(data) {
+//         res.json(data);
+//     });
+// });
 
-router.get('/sounds/featured', function(req, res, next) {
-  query.getFeaturedSounds()
-    .then((data) => {
-        res.json(data);
-    });
-});
+// router.get('/sounds/featured', function(req, res, next) {
+//   query.getFeaturedSounds()
+//     .then((data) => {
+//         res.json(data);
+//     });
+// });
 
-router.get('/sites/featured', function(req, res, next) {
-  query.getFeaturedSites()
-    .then((data) => {
-        res.json(data);
-    });
-});
+// router.get('/sites/featured', function(req, res, next) {
+//   query.getFeaturedSites()
+//     .then((data) => {
+//         res.json(data);
+//     });
+// });
 
 router.get('/sign-s3', function (req, res, next) {
   console.log('line 39');
@@ -48,13 +45,14 @@ router.get('/sign-s3', function (req, res, next) {
       ContentType: fileType,
       ACL: 'public-read'
     };
+    console.log('line 48');
 
     s3.getSignedUrl('putObject', s3Params, function(err, data) {
       if(err){
         console.log(err);
         return res.end();
       }
-    const returnData = {
+      const returnData = {
         signedRequest: data,
         url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
       };
@@ -65,10 +63,10 @@ router.get('/sign-s3', function (req, res, next) {
 });
 
 /* POST users listing. */
-router.post('/', function(req, res, next) {
-    console.log('you posting fool');
-    // myRay.push(req.body);
-    res.send(myRay);
-})
+// router.post('/', function(req, res, next) {
+//     console.log('you posting fool');
+//     // myRay.push(req.body);
+//     res.send(myRay);
+// })
 
 module.exports = router;
