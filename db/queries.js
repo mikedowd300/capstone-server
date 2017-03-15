@@ -33,8 +33,19 @@ module.exports = {
     return knex("sound").insert(obj);
   },
   getAllData: function() {
-    // let ray =
-
     return knex.select('mem_size').from('sound');
+  },
+  getFeaturedUrls: function(term) {
+    console.log(term);
+    if(term === ':featured'){
+      return knex("featuredurl").where("isFeatured", true);
+    } else if(term === ':not'){
+      return knex("featuredurl").where("isFeatured", false);
+    }else {
+      return knex("featuredurl").select();
+    }
+  },
+  patchIsFeatured: function(obj) {
+    return knex("featuredurl").where('id', obj.id).update('isFeatured', obj.isFeatured);
   }
 }

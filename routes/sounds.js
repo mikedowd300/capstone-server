@@ -27,6 +27,7 @@ router.post('/datausage', function(req, res, next){
 });
 
 router.get('/:term', function(req, res, next) {
+  console.log('getsounds');
   query.getSounds(req.params.term)
   .then(function(data) {
     console.log(data);
