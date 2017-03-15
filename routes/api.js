@@ -5,34 +5,6 @@ var aws = require('aws-sdk');
 
 const S3_BUCKET = process.env.S3_BUCKET;
 
-// router.get('/', function(req, res, next) {
-//   query.getUsers()
-//       .then((data) => {
-//           res.json(data);
-//       });
-// });
-
-// router.get('/sounds', function(req, res, next) {
-//   query.getSounds()
-//     .then(function(data) {
-//         res.json(data);
-//     });
-// });
-
-// router.get('/sounds/featured', function(req, res, next) {
-//   query.getFeaturedSounds()
-//     .then((data) => {
-//         res.json(data);
-//     });
-// });
-
-// router.get('/sites/featured', function(req, res, next) {
-//   query.getFeaturedSites()
-//     .then((data) => {
-//         res.json(data);
-//     });
-// });
-
 router.get('/sign-s3', function (req, res, next) {
   console.log('line 39');
   const s3 = new aws.S3();
@@ -61,12 +33,5 @@ router.get('/sign-s3', function (req, res, next) {
   });
 
 });
-
-/* POST users listing. */
-// router.post('/', function(req, res, next) {
-//     console.log('you posting fool');
-//     // myRay.push(req.body);
-//     res.send(myRay);
-// })
 
 module.exports = router;

@@ -31,5 +31,10 @@ module.exports = {
   },
   postSound: function(obj) {
     return knex("sound").insert(obj);
+  },
+  getAllData: function() {
+    // let ray =
+
+    return knex.select('mem_size').from('sound');
   }
 }
