@@ -38,9 +38,20 @@ router.get('/:term', function(req, res, next) {
 router.post('/', function(req, res, next){
   query.postSound(req.body)
   .then(function(data) {
-    console.log(data);
     res.json(data);
   });
+});
+
+router.put('/', function(req, res, next){
+  console.log(req.body);
+  if(req.body.password === PASSWORD) {
+    query.patchIsFeaturedSound(req.body)
+    .then(function() {
+      res.json(req.body);
+    });
+  } else {
+    res.json("PASSWORD FAILURE!");
+  }
 })
 
 

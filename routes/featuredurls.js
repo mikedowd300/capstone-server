@@ -2,14 +2,14 @@ var express = require('express');
 var query = require('../db/queries');
 var router = express.Router();
 var aws = require('aws-sdk');
+const PASSWORD = process.env.ADMIN_PASSWORD;
 
-router.get('/:term', function(req, res, next) {
-  query.getFeaturedUrls(req.params.term)
-  .then(function(data) {
-    // console.log(data);
-    res.json(data);
-  });
-});
+// router.get('/:term', function(req, res, next) {
+//   query.getFeaturedUrls(req.params.term)
+//   .then(function(data) {
+//     res.json(data);
+//   });
+// });
 
 router.get('/', function(req, res, next) {
   query.getFeaturedSites()
@@ -17,6 +17,17 @@ router.get('/', function(req, res, next) {
     res.json(data);
   });
 });
+
+router.post('/filter', function(req, res, next){
+  if(req.body.password === PASSWORD){
+    query.getFeaturedUrls(req.params.searchBy)
+      .then(function(data) {
+        res.json(data);
+      });
+  }else {
+    res.json('PASSWORD FAILURE!')
+  }
+})
 
 router.post('/', function(req, res, next){
   req.body.isFeatured = false;

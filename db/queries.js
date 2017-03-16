@@ -47,5 +47,8 @@ module.exports = {
   },
   patchIsFeatured: function(obj) {
     return knex("featuredurl").where('id', obj.id).update('isFeatured', obj.isFeatured);
+  },
+  patchIsFeaturedSound: function(obj) {
+    return knex("sound").where('id', obj.id).update('isFeatured', obj.isFeatured);
   }
 }
