@@ -4,6 +4,34 @@ var router = express.Router();
 var aws = require('aws-sdk');
 const PASSWORD = process.env.ADMIN_PASSWORD;
 
+router.get('/author/:author', function(req, res, next) {
+  let author = req.params.author.split(':')[1];
+  Promise.all([query.getSoundsByAuthorExact(author), query.getSoundsByAuthorLike(author)])
+  .then(function(data) {
+    data = dataConcat(data);
+    data = removeDupes(data);
+    res.json(data);
+  });
+});
+
+router.get('/genre/:genre', function(req, res, next) {
+  let genre = req.params.genre.split(':')[1];
+  console.log(genre);
+  query.getSoundsByGenre(genre)
+  .then(function(data) {
+    res.json(data);
+  });
+});
+
+router.get('/name/:name', function(req, res, next) {
+  let name = req.params.name.split(':')[1];
+  console.log(name);
+  query.getSoundsByName(name)
+  .then(function(data) {
+    res.json(data);
+  });
+});
+
 router.get('/featured', function(req, res, next) {
   query.getFeaturedSounds()
   .then(function(data) {
@@ -27,10 +55,8 @@ router.post('/datausage', function(req, res, next){
 });
 
 router.get('/:term', function(req, res, next) {
-  console.log('getsounds');
   query.getSounds(req.params.term)
   .then(function(data) {
-    console.log(data);
     res.json(data);
   });
 });
@@ -43,7 +69,6 @@ router.post('/', function(req, res, next){
 });
 
 router.put('/', function(req, res, next){
-  console.log(req.body);
   if(req.body.password === PASSWORD) {
     query.patchIsFeaturedSound(req.body)
     .then(function() {
@@ -54,5 +79,26 @@ router.put('/', function(req, res, next){
   }
 })
 
+function dataConcat(ray) {
+  let newRay = [];
+  let len = ray.length;
+  for(let i = 0; i < len; i++) {
+    newRay = newRay.concat(ray[i]);
+  }
+  return newRay;
+}
+
+function removeDupes(ray) {
+  console.log(ray);
+  let newRay = [ray[0]];
+  let testRay = [ray[0].sound_id];
+  for(let i = 1; i < ray.length; i++) {
+    if(!testRay.includes(ray[i].sound_id)) {
+      newRay.push(ray[i]);
+      testRay.push(ray[i].sound_id);
+    }
+  }
+  return newRay;
+}
 
 module.exports = router;

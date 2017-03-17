@@ -19,8 +19,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/filter', function(req, res, next){
+  console.log(req.body.searchBy);
   if(req.body.password === PASSWORD){
-    query.getFeaturedUrls(req.params.searchBy)
+    query.getFeaturedUrls(req.body.searchBy)
       .then(function(data) {
         res.json(data);
       });
