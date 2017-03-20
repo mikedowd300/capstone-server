@@ -51,6 +51,7 @@ module.exports = {
   patchIsFeaturedSound: function(obj) {
     return knex("sound").where('id', obj.id).update('isFeatured', obj.isFeatured);
   },
+  // REFACTOR THESE INTO A SINGLE FUNCTION
   getSoundsByAuthorExact: function(author) {
     return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
       `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
@@ -63,13 +64,28 @@ module.exports = {
       `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
       `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('email', 'like', '%' + author + '%');
   },
-  getSoundsByGenre: function(genre) {
+  getSoundsByGenreExact: function(genre) {
     return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
       `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
       `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
       `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('keyword', genre);
   },
-  getSoundsByName: function(name) {
-    return knex('sound').select('*').innerJoin('member', 'member.id', 'member_id').where('name', name);
+  getSoundsByGenreLike: function(genre) {
+    return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
+      `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
+      `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
+      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('keyword', 'like', '%' + genre + '%');
+  },
+  getSoundsByNameExact: function(name) {
+    return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
+      `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
+      `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
+      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('name', name);
+  },
+  getSoundsByNameLike: function(name) {
+    return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
+      `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
+      `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
+      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('name', 'like', '%' + name + '%');
   }
 }

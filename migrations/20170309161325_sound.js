@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string('name');
     table.string('description');
-    table.string('genre');
+    table.string('keyword');
     table.boolean('public').defaultTo(true);
     table.boolean('isFeatured').defaultTo(false);
     table.string('url');

@@ -16,18 +16,21 @@ router.get('/author/:author', function(req, res, next) {
 
 router.get('/genre/:genre', function(req, res, next) {
   let genre = req.params.genre.split(':')[1];
-  console.log(genre);
-  query.getSoundsByGenre(genre)
+  Promise.all([query.getSoundsByGenreExact(genre), query.getSoundsByGenreLike(genre), query.getSoundsByNameLike(genre)])
   .then(function(data) {
+    data = dataConcat(data);
+    data = removeDupes(data);
     res.json(data);
   });
 });
 
 router.get('/name/:name', function(req, res, next) {
   let name = req.params.name.split(':')[1];
-  console.log(name);
-  query.getSoundsByName(name)
+  Promise.all([query.getSoundsByNameExact(name), query.getSoundsByNameLike(name), query.getSoundsByGenreLike(name)])
   .then(function(data) {
+    console.log(data.length);
+    data = dataConcat(data);
+    data = removeDupes(data);
     res.json(data);
   });
 });
