@@ -33,7 +33,7 @@ module.exports = {
     return knex("featuredurl").insert(obj);
   },
   postSound: function(obj) {
-    return knex("sound").insert(obj);
+    return knex("sound").insert(obj).returning(['id']);
   },
   getAllData: function() {
     return knex.select('mem_size').from('sound');
