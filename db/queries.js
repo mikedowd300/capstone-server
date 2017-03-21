@@ -6,8 +6,11 @@ module.exports = {
   getUsers: function() {
     return knex("member").select('*');
   },
+  getAllSounds: function(term) {
+    return knex("sound").limit(100);
+  },
   getSounds: function(term) {
-    return knex("sound").where("name", term).orWhere("keyword", term);
+    return knex("sound").where("name", term).orWhere("keyword", term).limit(100);
   },
   getFeaturedSounds: function() {
     return knex("sound").where("isFeatured", true);
@@ -36,7 +39,6 @@ module.exports = {
     return knex.select('mem_size').from('sound');
   },
   getFeaturedUrls: function(term) {
-    console.log(term);
     if(term === 'featured'){
       return knex("featuredurl").where("isFeatured", true);
     } else if(term === 'not'){
@@ -56,36 +58,36 @@ module.exports = {
     return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
       `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
       `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
-      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('email', author);
+      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('email', author).limit(100);
   },
   getSoundsByAuthorLike: function(author) {
     return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
       `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
       `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
-      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('email', 'like', '%' + author + '%');
+      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('email', 'like', '%' + author + '%').limit(100);
   },
   getSoundsByGenreExact: function(genre) {
     return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
       `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
       `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
-      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('keyword', genre);
+      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('keyword', genre).limit(100);
   },
   getSoundsByGenreLike: function(genre) {
     return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
       `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
       `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
-      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('keyword', 'like', '%' + genre + '%');
+      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('keyword', 'like', '%' + genre + '%').limit(100);
   },
   getSoundsByNameExact: function(name) {
     return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
       `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
       `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
-      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('name', name);
+      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('name', name).limit(100);
   },
   getSoundsByNameLike: function(name) {
     return knex('sound').select(`sound.id as sound_id`, `sound.name as name`,
       `sound.description as description`, `sound.keyword as keyword`, `sound.public as public`,
       `sound.isFeatured as isFeatured`, `sound.url as url`, `sound.mem_size as mem_size`,
-      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('name', 'like', '%' + name + '%');
+      `sound.member_id as member_id`).innerJoin('member', 'member.id', 'member_id').where('name', 'like', '%' + name + '%').limit(100);
   }
 }

@@ -58,7 +58,10 @@ router.get('/sounds', function(req, res) {
       res.json(data);
     });
   }else {
-    res.json("Nothing to return!");
+    query.getAllSounds()
+    .then(function(data) {
+      res.json(data);
+    });
   }
 });
 

@@ -28,7 +28,6 @@ router.get('/name/:name', function(req, res, next) {
   let name = req.params.name.split(':')[1];
   Promise.all([query.getSoundsByNameExact(name), query.getSoundsByNameLike(name), query.getSoundsByGenreLike(name)])
   .then(function(data) {
-    console.log(data.length);
     data = dataConcat(data);
     data = removeDupes(data);
     res.json(data);
@@ -92,7 +91,6 @@ function dataConcat(ray) {
 }
 
 function removeDupes(ray) {
-  console.log(ray);
   let newRay = [ray[0]];
   let testRay = [ray[0].sound_id];
   for(let i = 1; i < ray.length; i++) {
